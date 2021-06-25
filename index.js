@@ -35,6 +35,15 @@ client.connect(err => {
             })
     })
 
+    // Single post
+    app.get('/post/:id', (req, res) => {
+        const id = req.params.id;
+        postCollection.find({ _id: ObjectId(id) })
+            .toArray((err, documents) => {
+                res.send(documents[0]);
+            })
+    })
+
     // Update Status
     app.patch('/updateStatus/:id', (req, res) => {
         const id = ObjectId(req.params.id)
