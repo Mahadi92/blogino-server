@@ -35,6 +35,22 @@ client.connect(err => {
             })
     })
 
+    // Update Status
+    app.patch('/updateStatus/:id', (req, res) => {
+        const id = ObjectId(req.params.id)
+        const body = req.body
+
+        postCollection.findOneAndUpdate(
+            { _id: id },
+            { $set: { status: body.status } }
+        )
+            .then(result => {
+                res.send(result.ok > 0)
+            })
+            .catch(err => {
+                console.log(err);
+            })
+    })
 
     app.get('/', function (req, res) {
         res.send('hello world')
